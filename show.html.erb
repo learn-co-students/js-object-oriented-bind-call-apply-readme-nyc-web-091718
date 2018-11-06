@@ -1,0 +1,50 @@
+<body class="site-bg70">
+  <section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading"><%= @show.title %></h1>
+        <hr class="my-4">
+          <p class="lead text-muted">
+            <%= "(#{@show.genre})" %>
+
+          </p>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="text-center">
+      <h1><%= "About #{@show.title}" %> </h1><br>
+
+      <div class="d-flex flex-row justify-content-center flex-wrap">
+        <div class="p-2 card-about justify-content-center">
+          <%= render 'user_shows/about' %><br>
+
+          <% if @user.already_saved(@show.id) %>
+            <%= button_to "Check My Watch Status", user_show_path(@show.this_saved_show(@user)), method: :get %>
+          <% else %>
+            <%= button_to "Add #{@show.title} to My Shows", new_user_show_path, method: :get %>
+          <% end %>
+          <br><br>
+        </div>
+      </div>
+
+
+
+          <h1><%= "#{@show.title} Reviews" %> </h1><br>
+        <div class="d-flex flex-row justify-content-center flex-wrap">
+          <div class="p-2 card-about justify-content-center">
+          <% if @reviews[0] %>
+
+              <% @reviews.each do |review| %>
+              Rating: <%= review.rating %><br>
+                  <%= review.content %><br><br>
+              <% end %>
+          <% else %>
+            No reviews yet - Be the first!
+          <% end %>
+          <%= button_to "Review #{@show.title}", new_review_path, method: :get %>
+        </div>
+        </div>
+        </div>
+    </section>
+  </body>
